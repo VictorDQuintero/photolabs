@@ -23,19 +23,17 @@ const App = () => {
     photosArr.push(sampleDataForPhotoListItem);    
   }
 
-  const photo = photosArr.map((samplePhoto) => {
+  const photo = photosArr.map((samplePhoto, index) => {
     return (
       <PhotoListItem 
-        key={samplePhoto.id}
+        key={index}
         photos={samplePhoto}
       />   
     );
   });
 
-
   return (
-    <div className="App">      
-        
+    <div className="App">            
       {photo}
     </div>
   );
