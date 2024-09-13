@@ -27,7 +27,7 @@ const App = () => {
     return (
       <PhotoListItem 
         key={index}
-        photos={samplePhoto}
+        photo={samplePhoto}
       />   
     );
   });
