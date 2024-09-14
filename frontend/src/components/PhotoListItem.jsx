@@ -1,4 +1,5 @@
 import React from "react";
+import PhotoFavButton from 'components/PhotoFavButton';
 import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = (props) => {
@@ -7,14 +8,16 @@ const PhotoListItem = (props) => {
 
   return (
     <div className="photo-list__item">
-      <img className="photo-list__image" src={props.photo.imageSource}/>      
+      <PhotoFavButton />
+      <img className="photo-list__image" src={props.imageSource}/>      
       <div className="photo-list__user-details">
-        <img className="photo-list__user-profile" src={props.photo.profile} />
+        <img className="photo-list__user-profile" src={props.profile} />
         <div className="photo-list__user-info">
-          <p>{props.photo.username}</p>
-          <p className="photo-list__user-location">{props.photo.location.city}, {props.photo.location.country}</p>
+          <p>{props.username}</p>
+          <p className="photo-list__user-location">{props.city}, {props.country}</p>
         </div>
       </div>
+      
     </div>
   )
 };
