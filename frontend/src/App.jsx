@@ -2,6 +2,7 @@ import React from 'react';
 
 import PhotoListItem from './components/PhotoListItem';
 import './App.scss';
+import PhotoFavButton from 'components/PhotoFavButton';
 
 const sampleDataForPhotoListItem = {
   id: "1",
@@ -34,7 +35,8 @@ const App = () => {
 
   return (
     <div className="App">            
-      {photo}
+      {/* {photo} */}
+      <PhotoFavButton />
     </div>
   );
 };
