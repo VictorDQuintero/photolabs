@@ -8,7 +8,7 @@ const TopicListItem = (props) => {
     <div className="topic-list__item">
       {/* Insert React */}
     
-      <span className="topic-list__item span">{props.title}</span>
+      <span className="topic-list__item span">{props.label}</span>
 
     </div>
   );

@@ -27,7 +27,7 @@ const TopicList = () => {
     return (
     <li key={topic.id}>
       <TopicListItem 
-      title={topic.title}
+      label={topic.title}
       slug={topic.slug}
       />
     </li>
