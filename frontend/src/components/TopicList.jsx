@@ -20,9 +20,9 @@ const sampleDataForTopicList = [
   },
 ];
 
-const TopicList = () => {
+const TopicList = (props) => {
 
-  const topics = sampleDataForTopicList.map((topic) => {
+  const topics = props.topics.map((topic) => {
 
     return (
     <li key={topic.id}>
