@@ -5,7 +5,7 @@ import TopicList from './TopicList';
 import FavBadge from './FavBadge';
 import '../styles/TopNavigationBar.scss'
 
-const TopNavigation = () => {
+const TopNavigation = (props) => {
 
   const [ favorited, setFavorited ] = useState(false);
 
@@ -14,7 +14,7 @@ const TopNavigation = () => {
   return (
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
-      <TopicList />
+      <TopicList topics={props.topics}/>
        <button className="fav-button" onClick={handleClick}>
           <FavBadge selected={favorited}/>
         </button>
