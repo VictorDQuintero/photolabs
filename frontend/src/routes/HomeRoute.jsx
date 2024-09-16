@@ -10,7 +10,7 @@ const HomeRoute = (props) => {
     <div className="home-route">
       {/* Insert React */}
       <TopNavigation topics={props.topics}/>
-      <PhotoList photos={props.photos}/>
+      <PhotoList photos={props.photos} globalFavorite={props.globalFavorite}/>
     </div>
   );
 };

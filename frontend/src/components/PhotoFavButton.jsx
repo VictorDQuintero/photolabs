@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton() {
+function PhotoFavButton(props) {
 
   const [ favorited, setFavorited ] = useState(false);
 
@@ -13,7 +13,9 @@ function PhotoFavButton() {
   return (
     <div className="photo-list__fav-icon">
       <div className="photo-list__fav-icon-svg">
-        <button onClick={handleClick}>
+        <button onClick={() => {
+          handleClick();
+          props.globalFavorite(props.id);}}>
           <FavIcon selected={favorited}/>
         </button>
     </div>
