@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import HomeRoute from 'routes/HomeRoute';
 
@@ -16,10 +16,25 @@ const App = () => {
 
   const preparedPhotos = prepareData(photos);
   const preparedTopics = prepareData(topics);
+  
+  const [ globalFav, setGlobalFav ] = useState(null);
+  const [ selectedPhotos, setSelectedPhotos ] = useState([]);
+
+  const handleClickGlobal = (idParam) => {
+
+     setGlobalFav(idParam); 
+  
+    const selectedPhoto = preparedPhotos.find(preparedPhoto => preparedPhoto.id === idParam);
+
+    if (selectedPhoto) {
+      setSelectedPhotos( selectedPhotos => [...selectedPhotos, selectedPhoto]);
+    }
+    
+  }
 
   return (
     <div className="App">     
-      <HomeRoute photos={preparedPhotos} topics={preparedTopics}/>
+      <HomeRoute photos={preparedPhotos} topics={preparedTopics} globalFavorite={handleClickGlobal}/>
     </div>
   );
 };
