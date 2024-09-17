@@ -1,4 +1,5 @@
 //TODO fix button, because the heart icon is askew
+// might want to consider checking if the photo ID exists in the global favorites array and updating the local state accordingly. This would ensure that the favorite status of a photo is consistent across the application.
 import React, { useCallback, useState } from 'react';
 
 import FavIcon from './FavIcon';
@@ -15,7 +16,8 @@ function PhotoFavButton(props) {
       <div className="photo-list__fav-icon-svg">
         <button onClick={() => {
           handleClick();
-          props.globalFavorite(props.id);}}>
+          props.globalFavorite(props.id);
+          }}>
           <FavIcon selected={favorited}/>
         </button>
     </div>
