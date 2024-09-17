@@ -5,18 +5,19 @@ import FavIcon from './FavIcon';
 
 import '../styles/FavBadge.scss';
 
-// const FavBadge = ({ isFavPhotoExist }) => {
-//   return (
-//     <div className='fav-badge'>
-//       <FavIcon displayAlert={!!isFavPhotoExist}/>
-//     </div>
-//   ) 
-// };
+const FavBadge = ({ isFavPhotoExist }) => {
+  console.log(isFavPhotoExist);
+  return (
+    <div className='fav-badge'>
+      <FavIcon displayAlert={!!isFavPhotoExist} selected={true}/>
+    </div>
+  ) 
+};
 
-const FavBadge = ({ selected }) => (
-  <div className='fav-badge'>
-    <FavIcon selected={selected} />
-  </div>
-);
+// const FavBadge = ({ selected }) => (
+//   <div className='fav-badge'>
+//     <FavIcon selected={selected} />
+//   </div>
+// );
 
 export default FavBadge;
