@@ -8,7 +8,7 @@ import '../styles/TopNavigationBar.scss'
 
 const TopNavigation = (props) => {
 
-const isFavPhotoExist = props.favoritePhotos.length;
+const isFavPhotoExist = props.favoritePhotos.length > 0;
 
  return (
     <div className="top-nav-bar">
