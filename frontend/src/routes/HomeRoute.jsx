@@ -9,8 +9,15 @@ const HomeRoute = (props) => {
   return (
     <div className="home-route">
       {/* Insert React */}
-      <TopNavigation topics={props.topics}/>
-      <PhotoList photos={props.photos} globalFavorite={props.globalFavorite}/>
+      <TopNavigation 
+      topics={props.topics} 
+      favoritePhotos={props.favoritePhotos} 
+      />
+      <PhotoList 
+      photos={props.photos} 
+      globalFavorite={props.globalFavorite}
+      globalIsFavorite={props.globalIsFavorite}
+      />
     </div>
   );
 };
