@@ -8,7 +8,7 @@ const PhotoListItem = (props) => {
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton globalFavorite={props.globalFavorite} id={props.id}/>
+      <PhotoFavButton globalFavorite={props.globalFavorite} id={props.id} />
       <img className="photo-list__image" src={props.imageSource}/>      
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={props.profile} />
