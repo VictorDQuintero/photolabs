@@ -1,3 +1,4 @@
+//TODO  However, it's not clear where these props are coming from. Make sure these props are correctly derived from your app's state.
 import React from 'react';
 
 import TopNavigation from 'components/TopNavigationBar';
