@@ -16,7 +16,6 @@ const HomeRoute = (props) => {
       <PhotoList 
       photos={props.photos} 
       globalFavorite={props.globalFavorite}
-      globalIsFavorite={props.globalIsFavorite}
       />
     </div>
   );
