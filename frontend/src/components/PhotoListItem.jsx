@@ -23,8 +23,7 @@ const PhotoListItem = (props) => {
         </div>
       </div>
       {
-        isModalOpen && 
-        <PhotoDetailsModal closeModal={closeModal}/>
+        isModalOpen && <PhotoDetailsModal closeModal={closeModal} />
       }
     </div>
   )
