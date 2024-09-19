@@ -38,25 +38,12 @@ const App = () => {
 
   }
 
-//   const handleClickModal = (isModalOpen) => {
-
-//   const openModal = () => {
-//     setIsModalOpen(true);
-//   }
-
-//   const closeModal = () => {
-//     setIsModalOpen(false);
-//   }
-
-//   isModalOpen ? closeModal : openModal;
-
-// }
-
-const handleClickModal = (isModalOpen, photoId) => {
+  const handleClickModal = (isModalOpen, photoId) => {
   isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true);
+  // setIsModalOpen(prevState => !prevState);
 
   const photoDetails = preparedPhotos.find(photo => photo.id === photoId);
-  console.log(photoDetails);
+  
   setSinglePhotoDetail({...photoDetails})
 };
 
@@ -70,8 +57,6 @@ const handleClickModal = (isModalOpen, photoId) => {
         globalFavorite={handleClickGlobalId} 
         favoritePhotos={selectedPhotos} 
         isModalOpen={isModalOpen} 
-        // openModal={openModal} 
-        // closeModal={closeModal} 
         displayModal={handleClickModal}
         singlePhotoDetail={singlePhotoDetail}
       />      
