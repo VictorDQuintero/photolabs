@@ -10,13 +10,10 @@ const PhotoListItem = (props) => {
 
   // const openModal = () => setIsModalOpen(true);
   // const closeModal = () => setIsModalOpen(false);
-
-  
-
   return (
     <div className="photo-list__item">
       <PhotoFavButton globalFavorite={props.globalFavorite} id={props.id} />
-      <img className="photo-list__image" src={props.imageSource}  onClick={props.openModal}/>      
+      <img className="photo-list__image" src={props.imageSource}  onClick={()=> props.displayModal(props.isModalOpen, props.id)}/>      
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={props.profile} />
         <div className="photo-list__user-info">
@@ -24,7 +21,6 @@ const PhotoListItem = (props) => {
           <p className="photo-list__user-location">{props.city}, {props.country}</p>
         </div>
       </div>  
-      {console.log(props.id, props.city, props.country, props.imageSource, props.name )}  
     </div>
   )
 };
