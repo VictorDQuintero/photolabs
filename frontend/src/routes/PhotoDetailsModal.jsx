@@ -5,6 +5,7 @@ import closeSymbol from '../assets/closeSymbol.svg';
 
 const PhotoDetailsModal = (props) => {
 
+  console.log(props.singlePhotoDetail);
  
 
   return (
