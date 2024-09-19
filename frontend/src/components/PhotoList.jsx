@@ -15,7 +15,10 @@ const PhotoList = (props) => {
       city={photo.location.city}
       country={photo.location.country}
       id={photo.id} // send id to identify potentially favourited picture
-      globalFavorite={props.globalFavorite}      
+      globalFavorite={props.globalFavorite}
+      openModal={props.openModal}
+      closeModal={props.closeModal}
+      isModalOpen={props.isModalOpen}
       />
     </li>
     );
