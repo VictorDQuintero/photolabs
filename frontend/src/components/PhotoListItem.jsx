@@ -23,12 +23,7 @@ const PhotoListItem = (props) => {
           <p>{props.username}</p>
           <p className="photo-list__user-location">{props.city}, {props.country}</p>
         </div>
-      </div>
-
-      {props.isModalOpen && <PhotoDetailsModal closeModal={props.closeModal}/>}
-      
-       
-     
+      </div>    
     </div>
   )
 };

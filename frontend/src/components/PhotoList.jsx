@@ -17,8 +17,6 @@ const PhotoList = (props) => {
       id={photo.id} // send id to identify potentially favourited picture
       globalFavorite={props.globalFavorite}
       openModal={props.openModal}
-      closeModal={props.closeModal}
-      isModalOpen={props.isModalOpen}
       />
     </li>
     );

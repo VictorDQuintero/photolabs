@@ -21,8 +21,6 @@ const App = () => {
   
   const [ globalFavId, setGlobalFavId ] = useState(null);
   const [ selectedPhotos, setSelectedPhotos ] = useState([]);
-  // const [ favorited, setFavorited ] = useState(false);
-  // const [ isFavPhotoExist, setIsFavPhotoExist ] = useState(false);
   const [ isModalOpen, setIsModalOpen ] = useState(false);
 
   const openModal = () => {
@@ -50,16 +48,6 @@ const App = () => {
     } 
 
   }
-
-  
-
-  // const handleClickGlobalFav = () => {
-  //   setFavorited(!favorited);
-  // }
-  // // helper function
-  // const removeFavoritePhoto = (id, favorited) => {
-  //   setSelectedPhotos(preparedPhotos => preparedPhotos.filter(photo => photo.id !== id));
-  // };
 
   return (
     <div className="App">     

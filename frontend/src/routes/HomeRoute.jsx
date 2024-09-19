@@ -3,6 +3,7 @@ import React from 'react';
 
 import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
+import PhotoDetailsModal from './PhotoDetailsModal';
 
 import '../styles/HomeRoute.scss';
 
@@ -18,9 +19,8 @@ const HomeRoute = (props) => {
       photos={props.photos} 
       globalFavorite={props.globalFavorite}
       openModal={props.openModal}
-      closeModal={props.closeModal}
-      isModalOpen={props.isModalOpen}
       />
+      {props.isModalOpen && <PhotoDetailsModal closeModal={props.closeModal}/>}
     </div>
   );
 };
