@@ -17,6 +17,9 @@ const HomeRoute = (props) => {
       <PhotoList 
       photos={props.photos} 
       globalFavorite={props.globalFavorite}
+      openModal={props.openModal}
+      closeModal={props.closeModal}
+      isModalOpen={props.isModalOpen}
       />
     </div>
   );
