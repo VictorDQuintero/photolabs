@@ -13,16 +13,26 @@ const HomeRoute = (props) => {
     <div className="home-route">
       {/* Insert React */}
       <TopNavigation 
-      topics={props.topics} 
-      favoritePhotos={props.favoritePhotos} 
+        topics={props.topics} 
+        favoritePhotos={props.favoritePhotos} 
       />
       <PhotoList 
-      photos={props.photos} 
-      globalFavorite={props.globalFavorite}
-      openModal={props.openModal}
+        photos={props.photos} 
+        globalFavorite={props.globalFavorite}
+        // openModal={props.openModal}
+        displayModal={props.displayModal}
+        isModalOpen={props.isModalOpen}
       />
-      {props.isModalOpen && <PhotoDetailsModal closeModal={props.closeModal}/>}
-      
+      {   
+        props.isModalOpen 
+        && 
+        <PhotoDetailsModal 
+          closeModal={props.displayModal} 
+          isModalOpen={props.isModalOpen} 
+          singlePhotoDetail={props.singlePhotoDetail}
+        />
+        //used to be closeModal={props.closeModal}
+      }      
     </div>
   );
 };
