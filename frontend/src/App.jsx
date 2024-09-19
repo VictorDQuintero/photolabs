@@ -18,40 +18,63 @@ const App = () => {
 
   const preparedPhotos = prepareData(photos);
   const preparedTopics = prepareData(topics);
-  
+
   const [ globalFavId, setGlobalFavId ] = useState(null);
   const [ selectedPhotos, setSelectedPhotos ] = useState([]);
   const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [ singlePhotoDetail, setSinglePhotoDetail ] = useState({})
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  }
-  
   const handleClickGlobalId = (idParam) => {
 
     setGlobalFavId(idParam); // sets the photo id
-    // setSelectedPhotos(prevPhotos => [...prevPhotos, idParam]) // puts the fav photo id's in array
-    // setFavorited(!favorited); // favorite toggle
-
-    // const selectedPhoto = preparedPhotos.find(preparedPhoto => preparedPhoto.id === idParam);    
-
+   
     const selectedPhoto = selectedPhotos.find(id => id === idParam)
 
     if (selectedPhoto === undefined) {
       setSelectedPhotos(prevPhotos => [...prevPhotos, idParam]) // puts the fav photo id's in array
     } else if(selectedPhoto) {
-      setSelectedPhotos( prevPhotos => prevPhotos.filter(id => id !== selectedPhoto));
+      setSelectedPhotos( prevPhotos => prevPhotos.filter(id => id !== selectedPhoto));// removes the photo id
     } 
 
   }
 
+//   const handleClickModal = (isModalOpen) => {
+
+//   const openModal = () => {
+//     setIsModalOpen(true);
+//   }
+
+//   const closeModal = () => {
+//     setIsModalOpen(false);
+//   }
+
+//   isModalOpen ? closeModal : openModal;
+
+// }
+
+const handleClickModal = (isModalOpen, photoId) => {
+  isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true);
+
+  const photoDetails = preparedPhotos.find(photo => photo.id === photoId);
+  console.log(photoDetails);
+  setSinglePhotoDetail({...photoDetails})
+};
+
+
+
   return (
     <div className="App">     
-      <HomeRoute photos={preparedPhotos} topics={preparedTopics} globalFavorite={handleClickGlobalId} favoritePhotos={selectedPhotos} isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />      
+      <HomeRoute 
+        photos={preparedPhotos} 
+        topics={preparedTopics} 
+        globalFavorite={handleClickGlobalId} 
+        favoritePhotos={selectedPhotos} 
+        isModalOpen={isModalOpen} 
+        // openModal={openModal} 
+        // closeModal={closeModal} 
+        displayModal={handleClickModal}
+        singlePhotoDetail={singlePhotoDetail}
+      />      
     </div>
   );
 };
