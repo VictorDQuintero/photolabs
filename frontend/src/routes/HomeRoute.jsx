@@ -8,6 +8,7 @@ import PhotoDetailsModal from './PhotoDetailsModal';
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = (props) => {
+  
   return (
     <div className="home-route">
       {/* Insert React */}
@@ -21,6 +22,7 @@ const HomeRoute = (props) => {
       openModal={props.openModal}
       />
       {props.isModalOpen && <PhotoDetailsModal closeModal={props.closeModal}/>}
+      
     </div>
   );
 };
