@@ -23,7 +23,16 @@ const App = () => {
   const [ selectedPhotos, setSelectedPhotos ] = useState([]);
   // const [ favorited, setFavorited ] = useState(false);
   // const [ isFavPhotoExist, setIsFavPhotoExist ] = useState(false);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
+  
   const handleClickGlobalId = (idParam) => {
 
     setGlobalFavId(idParam); // sets the photo id
@@ -38,11 +47,7 @@ const App = () => {
       setSelectedPhotos(prevPhotos => [...prevPhotos, idParam]) // puts the fav photo id's in array
     } else if(selectedPhoto) {
       setSelectedPhotos( prevPhotos => prevPhotos.filter(id => id !== selectedPhoto));
-    }
-    
-    
-
-    
+    } 
 
   }
 
@@ -58,7 +63,7 @@ const App = () => {
 
   return (
     <div className="App">     
-      <HomeRoute photos={preparedPhotos} topics={preparedTopics} globalFavorite={handleClickGlobalId} favoritePhotos={selectedPhotos}/>
+      <HomeRoute photos={preparedPhotos} topics={preparedTopics} globalFavorite={handleClickGlobalId} favoritePhotos={selectedPhotos} isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />      
     </div>
   );
 };
