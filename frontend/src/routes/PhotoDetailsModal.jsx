@@ -51,10 +51,8 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, globalFavorite, phot
         </button>
       </div>
       <PhotoFavButton globalFavorite={globalFavorite} id={singlePhotoDetail.id} />
-      <div className="photo-details-modal__image">
-        <img src={singlePhotoDetail.urls.full} alt={singlePhotoDetail.description} />
-      </div>
-      <div className="photo-details-modal__header">
+      <div className="photo-details-modal__images">
+        <img className="photo-details-modal_image" src={singlePhotoDetail.urls.full} alt={singlePhotoDetail.description} />     
         <div className="photo-details-modal__photographer-details">
           <img src={singlePhotoDetail.user.profile} alt="" className="photo-details-modal__photographer-profile" />
           <div className="photo-details-modal__photographer-info">
@@ -62,15 +60,18 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, globalFavorite, phot
             <p className="photo-details-modal__photographer-location">{singlePhotoDetail.location.city} {singlePhotoDetail.location.country}</p>
           </div>
         </div>
-      </div>
-      <div className="photo-details-modal__images">
-        <PhotoList
-          photos={photos}
-          singlePhotoDetail={singlePhotoDetail}
-          displayModal={closeModal} // Assuming similar photos do not open new modals
-          isModalOpen={true}
-          globalFavorite={globalFavorite}
-        />
+        <div className="photo-details-modal__header">
+          Similar Photos
+        </div>      
+        <div className="photo-details-modal__images">
+          <PhotoList
+            photos={photos}
+            singlePhotoDetail={singlePhotoDetail}
+            displayModal={closeModal} // Assuming similar photos do not open new modals
+            isModalOpen={true}
+            globalFavorite={globalFavorite}
+          />
+        </div>
       </div>
     </div>
   );
@@ -78,3 +79,4 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, globalFavorite, phot
 
 
 export default PhotoDetailsModal;
+
