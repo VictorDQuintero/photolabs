@@ -68,7 +68,7 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, globalFavorite, phot
           <PhotoList
             photos={photos}
             singlePhotoDetail={singlePhotoDetail}            
-            globalFavorite={globalFavorite}
+            /* globalFavorite={globalFavorite} */
           />
         </div>
       </div>
