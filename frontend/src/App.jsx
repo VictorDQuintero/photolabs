@@ -24,7 +24,7 @@ const App = () => {
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ singlePhotoDetail, setSinglePhotoDetail ] = useState({})
 
-  const handleClickGlobalId = (idParam) => {
+  const handleClickFav = (idParam) => {
 
     setGlobalFavId(idParam); // sets the photo id
    
@@ -92,12 +92,13 @@ const closeModal = () => {
   setSinglePhotoDetail({similar_photos: []}); // Reset to initial state
 };
 
+
 return (
   <div className="App">
     <HomeRoute
       photos={preparedPhotos}
       topics={preparedTopics}
-      globalFavorite={handleClickGlobalId}
+      globalFavorite={handleClickFav}
       favoritePhotos={selectedPhotos}
       displayModal={openModal}
       isModalOpen={isModalOpen}
