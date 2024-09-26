@@ -1,4 +1,4 @@
-// might want to consider storing the IDs of the favorite photos in the global state instead of the entire photo objects. This would make the state lighter and easier to manage.
+// make use of helper function in singlePhotoDetail state
 
 import React, { useState } from 'react';
 
