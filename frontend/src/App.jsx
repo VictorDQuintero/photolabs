@@ -38,30 +38,106 @@ const App = () => {
 
   }
 
-  const handleClickModal = (isModalOpen, photoId) => {
-  isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true);
-  // setIsModalOpen(prevState => !prevState);
+//   const handleClickModal = (isModalOpen, photoId) => {
+//   isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true);
+//   // setIsModalOpen(prevState => !prevState);
 
-  const photoDetails = preparedPhotos.find(photo => photo.id === photoId);
+//   const photoDetails = preparedPhotos.find(photo => photo.id === photoId);
   
-  setSinglePhotoDetail({...photoDetails})
+//   setSinglePhotoDetail({...photoDetails})
+// };
+
+// const openModal = (photoId) => {
+//   const photoDetails = preparedPhotos.find(photo => photo.id === photoId);
+//   // setSinglePhotoDetail({ ...photoDetails, similar_photos: photoDetails.similar_photos || [] }); // Ensure similar_photos is an array
+//   setSinglePhotoDetail({...photoDetails})
+//   setIsModalOpen(true);
+// };
+
+// const closeModal = () => {
+//   setIsModalOpen(false);
+//   setSinglePhotoDetail({});
+// };
+
+const openModal = (photoId) => {
+  const photoDetails = preparedPhotos.find(photo => photo.id === photoId) || {};
+  let similarPhotosArray = photoDetails.similar_photos || [];
+
+  //make use of prepareddata function
+
+  if (typeof similarPhotosArray === "object" && !Array.isArray(similarPhotosArray)) {
+    similarPhotosArray = Object.values(similarPhotosArray);
+  }
+
+  console.log("Opening Modal with photoDetails:", photoDetails);
+  console.log("Similar Photos:", similarPhotosArray);
+
+  if (!singlePhotoDetail || singlePhotoDetail.id !== photoId) {
+    setSinglePhotoDetail({
+      ...photoDetails,
+      similar_photos: similarPhotosArray
+    });
+    setIsModalOpen(true);
+  }
+
+  setSinglePhotoDetail({
+    ...photoDetails,
+    similar_photos: similarPhotosArray
+  });
+  setIsModalOpen(true);
+};
+
+const closeModal = () => {
+  setIsModalOpen(false);
+  setSinglePhotoDetail({similar_photos: []}); // Reset to initial state
+};
+
+return (
+  <div className="App">
+    <HomeRoute
+      photos={preparedPhotos}
+      topics={preparedTopics}
+      globalFavorite={handleClickGlobalId}
+      favoritePhotos={selectedPhotos}
+      displayModal={openModal}
+      isModalOpen={isModalOpen}
+      singlePhotoDetail={singlePhotoDetail}
+      closeModal={closeModal}
+    />
+  </div>
+);
 };
 
 
+  // return (
+  //   <div className="App">     
+  //     <HomeRoute 
+  //       photos={preparedPhotos} 
+  //       topics={preparedTopics} 
+  //       globalFavorite={handleClickGlobalId} 
+  //       favoritePhotos={selectedPhotos} 
+  //       isModalOpen={isModalOpen} 
+  //       displayModal={handleClickModal}
+  //       singlePhotoDetail={singlePhotoDetail}
+  //     />      
+  //   </div>
+  // );
 
-  return (
-    <div className="App">     
-      <HomeRoute 
-        photos={preparedPhotos} 
-        topics={preparedTopics} 
-        globalFavorite={handleClickGlobalId} 
-        favoritePhotos={selectedPhotos} 
-        isModalOpen={isModalOpen} 
-        displayModal={handleClickModal}
-        singlePhotoDetail={singlePhotoDetail}
-      />      
-    </div>
-  );
-};
+  
+  // return (
+  //   <div className="App">
+  //     <HomeRoute
+  //       photos={preparedPhotos}
+  //       topics={preparedTopics}
+  //       globalFavorite={handleClickGlobalId}
+  //       favoritePhotos={selectedPhotos}
+  //       isModalOpen={isModalOpen}
+  //       displayModal={handleClickModal}
+  //       singlePhotoDetail={singlePhotoDetail}
+  //       closeModal={closeModal}
+  //     />
+  //   </div>
+  // );
+
 
 export default App;
