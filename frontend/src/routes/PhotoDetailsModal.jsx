@@ -1,3 +1,4 @@
+//TODO at the moment if a user clicks a picture outside of the modal it will display in the modal, this shouldn't happen, the backpage should be neutralized
 import React from 'react';
 
 import PhotoList from 'components/PhotoList';
@@ -66,9 +67,7 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, globalFavorite, phot
         <div className="photo-details-modal__images">
           <PhotoList
             photos={photos}
-            singlePhotoDetail={singlePhotoDetail}
-            displayModal={closeModal} // Assuming similar photos do not open new modals
-            isModalOpen={true}
+            singlePhotoDetail={singlePhotoDetail}            
             globalFavorite={globalFavorite}
           />
         </div>
