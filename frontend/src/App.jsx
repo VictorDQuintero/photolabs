@@ -20,21 +20,25 @@ const App = () => {
   const preparedTopics = prepareData(topics);
 
   const [ globalFavId, setGlobalFavId ] = useState(null);
-  const [ selectedPhotos, setSelectedPhotos ] = useState([]);
+  const [ favoritePhotos, setFavoritePhotos ] = useState([]);
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ singlePhotoDetail, setSinglePhotoDetail ] = useState({})
+  
+  const addFavorite = (id) => {
+    setFavoritePhotos(prevPhotos => [...prevPhotos, id]) // puts the fav photo id's in array
+  }
 
-  const handleClickFav = (idParam) => {
+  const removeFavorite = (id) => {
+    setFavoritePhotos( prevPhotos => prevPhotos.filter(idItem => idItem !== id));// removes the photo id
+  }
 
-    setGlobalFavId(idParam); // sets the photo id
+  const handleClickFav = (id) => {
+
+    setGlobalFavId(id); // sets the photo id
    
-    const selectedPhoto = selectedPhotos.find(id => id === idParam)
+    const favoritePhoto = favoritePhotos.find(idItem => idItem === id)
 
-    if (selectedPhoto === undefined) {
-      setSelectedPhotos(prevPhotos => [...prevPhotos, idParam]) // puts the fav photo id's in array
-    } else if(selectedPhoto) {
-      setSelectedPhotos( prevPhotos => prevPhotos.filter(id => id !== selectedPhoto));// removes the photo id
-    } 
+    favoritePhoto ? removeFavorite(id) : addFavorite(id);
 
   }
 
@@ -98,8 +102,8 @@ return (
     <HomeRoute
       photos={preparedPhotos}
       topics={preparedTopics}
-      globalFavorite={handleClickFav}
-      favoritePhotos={selectedPhotos}
+      toggleFavorite={handleClickFav}
+      favoritePhotos={favoritePhotos}
       displayModal={openModal}
       isModalOpen={isModalOpen}
       singlePhotoDetail={singlePhotoDetail}
