@@ -34,11 +34,9 @@ const App = () => {
 
   const handleClickFav = (id) => {
 
-    setGlobalFavId(id); // sets the photo id
-   
-    const favoritePhoto = favoritePhotos.find(idItem => idItem === id)
+    setGlobalFavId(id); // sets the photo id  
 
-    favoritePhoto ? removeFavorite(id) : addFavorite(id);
+    favoritePhotos.includes(id) ? removeFavorite(id) : addFavorite(id);
 
   }
 
