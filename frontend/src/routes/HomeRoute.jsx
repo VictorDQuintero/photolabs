@@ -37,8 +37,8 @@ import '../styles/HomeRoute.scss';
 //   );
 // };
 
-const HomeRoute = ({ photos, topics, globalFavorite, favoritePhotos, displayModal, isModalOpen, singlePhotoDetail, closeModal }) => {
-  console.log("HomeRoute photos:", photos); // Debugging line
+const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModal, isModalOpen, singlePhotoDetail, closeModal }) => {
+  console.log("In home route: ", favoritePhotos); // Debugging line
   return (
     <div className="home-route">
       {/* Render topics and other sections as needed */}
@@ -48,7 +48,7 @@ const HomeRoute = ({ photos, topics, globalFavorite, favoritePhotos, displayModa
        />
       <PhotoList
         photos={photos}
-        globalFavorite={globalFavorite}
+        toggleFavorite={toggleFavorite}
         favoritePhotos={favoritePhotos}
         displayModal={displayModal}
         isModalOpen={isModalOpen}
@@ -56,10 +56,12 @@ const HomeRoute = ({ photos, topics, globalFavorite, favoritePhotos, displayModa
       />
       {isModalOpen && singlePhotoDetail && (
         <PhotoDetailsModal
+          photos={photos}
           closeModal={closeModal}
           singlePhotoDetail={singlePhotoDetail}
-          globalFavorite={globalFavorite}
-          photos={singlePhotoDetail.similar_photos}
+          toggleFavorite={toggleFavorite}
+          favoritePhotos={favoritePhotos}
+          similarPhotos={singlePhotoDetail.similar_photos}
         />
       )}
     </div>
