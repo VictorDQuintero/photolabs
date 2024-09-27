@@ -62,8 +62,10 @@ import "../styles/PhotoList.scss";
 //   );
 // };
 
-const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, globalFavorite }) => {
-  console.log("PhotoList photos:", photos); // Debugging line
+const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, toggleFavorite: toggleFavorite, favoritePhotos }) => {
+  console.log("In photoList: ", favoritePhotos); // Debugging line  
+
+  
   const photoItems = photos.map(photo => (
     <li key={photo.id}>
       <PhotoListItem
@@ -73,7 +75,8 @@ const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, globa
         city={photo.location.city}
         country={photo.location.country}
         id={photo.id}
-        globalFavorite={globalFavorite}
+        toggleFavorite={toggleFavorite}
+        favoritePhotos={favoritePhotos}
         displayModal={() => displayModal(photo.id)}
       />
     </li>
@@ -89,7 +92,8 @@ const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, globa
             city={similarPhoto.location?.city}
             country={similarPhoto.location?.country}
             id={similarPhoto.id}
-            globalFavorite={globalFavorite}
+            toggleFavorite={toggleFavorite}
+            favoritePhotos={favoritePhotos}
           />
         </li>
       ))
