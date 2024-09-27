@@ -4,13 +4,7 @@ import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = (props) => {
-  /* Insert React */
-
-  // const [ isModalOpen, setIsModalOpen ] = useState(false);
-
-  // const openModal = () => setIsModalOpen(true);
-  // const closeModal = () => setIsModalOpen(false);
-  console.log("In PhotoListItem: ", props.favoritePhotos);
+ 
   const isFavorite = props.favoritePhotos.includes(props.id);
 
   return (
@@ -20,7 +14,7 @@ const PhotoListItem = (props) => {
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={props.profile} />
         <div className="photo-list__user-info">
-          <p>{props.username}</p>
+          <p>{props.name}</p>
           <p className="photo-list__user-location">{props.city}, {props.country}</p>
         </div>
       </div>  
