@@ -6,13 +6,25 @@
   margin-bottom: -30px;
   border-width: 0.1px;
   background-color: #EEEEEE;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   text-align: center;
-  border-radius: 100%;
+  border-radius: 50%; /* updated for perfectly round borders */
+  display: flex; /* Use flexbox to easily center the button content */
+  align-items: flex-start; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
 
 .photo-list__fav-icon-svg {
-  padding: 7px;
-  top: 2px;
+  padding-top: 2px;
+  padding-left: 1px;
+  
+}
+
+button {
+  background: none; /* Remove default button styles */
+  border: none; /* Remove default button borders */
+  padding: 0; /* Remove unnecessary padding */
+  cursor: pointer; /* Ensure cursor is a pointer when hovering over button */
+  font-size: 1.5em; /* Make the heart icon bigger */
 }
