@@ -43,7 +43,10 @@ import closeSymbol from '../assets/closeSymbol.svg';
 //   )
 // };
 
-const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, globalFavorite, photos }) => {
+const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, toggleFavorite, photos, favoritePhotos, similarPhotos }) => {
+  console.log("In PhotoDetailsModal: ", favoritePhotos);
+  const isFavorite = favoritePhotos.includes(singlePhotoDetail.id);
+
   return (
     <div className="photo-details-modal">
       <div className="photo-details-modal__top-bar">
@@ -51,7 +54,7 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, globalFavorite, phot
           <img src={closeSymbol} alt="close symbol" />
         </button>
       </div>
-      <PhotoFavButton globalFavorite={globalFavorite} id={singlePhotoDetail.id} />
+      <PhotoFavButton onClick={() => toggleFavorite(singlePhotoDetail.id)}  isFavorite={isFavorite} />
       <div className="photo-details-modal__images">
         <img className="photo-details-modal_image" src={singlePhotoDetail.urls.full} alt={singlePhotoDetail.description} />     
         <div className="photo-details-modal__photographer-details">
@@ -66,9 +69,10 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, globalFavorite, phot
         </div>      
         <div className="photo-details-modal__images">
           <PhotoList
-            photos={photos}
+            photos={similarPhotos}
             singlePhotoDetail={singlePhotoDetail}            
-            globalFavorite={globalFavorite}
+            toggleFavorite={toggleFavorite}
+            favoritePhotos={favoritePhotos}
           />
         </div>
       </div>
