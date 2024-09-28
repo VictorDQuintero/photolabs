@@ -1,4 +1,5 @@
 //TODO at the moment if a user clicks a picture outside of the modal it will display in the modal, this shouldn't happen, the backpage should be neutralized
+//TODO there is a potentially unnecessary prop: photo
 import React from 'react';
 
 import PhotoList from 'components/PhotoList';
@@ -7,44 +8,8 @@ import PhotoFavButton from 'components/PhotoFavButton';
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 
-// const PhotoDetailsModal = (props) => {
-// console.log(props.singlePhotoDetail)
-
-//   return (
-//     <div className="photo-details-modal">
-//       <div className="photo-details-modal__top-bar">
-//         <button className="photo-details-modal__close-button" onClick={props.closeModal}>
-//           <img src={closeSymbol} alt="close symbol" />
-//         </button>      
-//       </div>
-//       <PhotoFavButton globalFavorite={props.globalFavorite} id={props.id} />
-//       <div className="photo-details-modal__image" >
-//       <img  src={props.singlePhotoDetail.urls.full} />
-//       </div>
-//       <div className="photo-details-modal__header"> 
-//         <div className="photo-details-modal__photographer-details">
-//           <img src={props.singlePhotoDetail.user.profile} alt="" className="photo-details-modal__photographer-profile"/>
-//           <div className="photo-details-modal__photographer-info">
-//             <p>{props.singlePhotoDetail.user.name}</p>
-//             <p className="photo-details-modal__photographer-location">{props.singlePhotoDetail.location.city} {props.singlePhotoDetail.location.country}</p>
-//           </div>
-//         </div>
-//       </div>  
-//       <div className={"photo-details-modal__images"}>
-//         <PhotoList 
-//         photos={props.photos} 
-//         singlePhotoDetail={props.singlePhotoDetail}
-//         displayModal={props.displayModal}
-//         isModalOpen={props.isModalOpen}
-//         />
-//       </div>
-      
-//     </div>
-//   )
-// };
-
 const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, toggleFavorite, photos, favoritePhotos, similarPhotos }) => {
-  console.log("In PhotoDetailsModal: ", favoritePhotos);
+  
   const isFavorite = favoritePhotos.includes(singlePhotoDetail.id);
 
   return (
