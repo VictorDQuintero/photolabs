@@ -19,13 +19,12 @@ const App = () => {
 
   const preparedPhotos = prepareData(photos);
   const preparedTopics = prepareData(topics);
-  const { updateToFavPhotos, 
-          favoritePhotos, 
+  const { 
+          state,
+          updateToFavPhotos, 
           setPhotoSelected,   
-          isModalOpen, 
-          singlePhotoDetail, 
           onClosePhotoDetailsModal 
-        } = useApplicationData();
+        } = useApplicationData(preparedPhotos);
 
 return (
   <div className="App">
@@ -33,10 +32,10 @@ return (
       photos={preparedPhotos}
       topics={preparedTopics}
       toggleFavorite={updateToFavPhotos}
-      favoritePhotos={favoritePhotos}
+      favoritePhotos={state.favoritePhotos}
       displayModal={setPhotoSelected}
-      isModalOpen={isModalOpen}
-      singlePhotoDetail={singlePhotoDetail}
+      isModalOpen={state.isPhotoSelected}
+      singlePhotoDetail={state.singlePhotoDetail}
       closeModal={onClosePhotoDetailsModal}
     />
   </div>
