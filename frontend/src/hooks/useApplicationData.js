@@ -22,10 +22,11 @@ const useApplicationData = () => {
   const preparedPhotos = prepareData(photos);
   const preparedTopics = prepareData(topics);
 
-  // const [ globalFavId, setGlobalFavId ] = useState(null);
   const [ favoritePhotos, setFavoritePhotos ] = useState([]);
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ singlePhotoDetail, setSinglePhotoDetail ] = useState({})
+
+  // Handles the Favorite Functionality
 
   const addFavorite = (id) => {
     setFavoritePhotos(prevPhotos => [...prevPhotos, id]) // puts the fav photo id's in array
@@ -37,11 +38,11 @@ const useApplicationData = () => {
 
   const updateToFavPhotos = (id) => {
 
-    // setGlobalFavId(id); // sets the photo id  
-
     favoritePhotos.includes(id) ? removeFavorite(id) : addFavorite(id);
 
   }
+
+  // Handles What happens when a Photo is selected, , i.e. opens the Modal
 
   const setPhotoSelected = (photoId) => {
     const photoDetails = preparedPhotos.find(photo => photo.id === photoId) || {};
@@ -52,10 +53,7 @@ const useApplicationData = () => {
     if (typeof similarPhotosArray === "object" && !Array.isArray(similarPhotosArray)) {
       similarPhotosArray = Object.values(similarPhotosArray);
     }
-  
-    console.log("Opening Modal with photoDetails:", photoDetails);
-    console.log("Similar Photos:", similarPhotosArray);
-  
+    
     if (!singlePhotoDetail || singlePhotoDetail.id !== photoId) {
       setSinglePhotoDetail({
         ...photoDetails,
@@ -64,12 +62,14 @@ const useApplicationData = () => {
       setIsModalOpen(true);
     }
   
-    setSinglePhotoDetail({
-      ...photoDetails,
-      similar_photos: similarPhotosArray
-    });
-    setIsModalOpen(true);
+    // setSinglePhotoDetail({
+    //   ...photoDetails,
+    //   similar_photos: similarPhotosArray
+    // });
+    // setIsModalOpen(true);
   };
+
+  // Handles Modal closing
 
   const onClosePhotoDetailsModal = () => {
     setIsModalOpen(false);
