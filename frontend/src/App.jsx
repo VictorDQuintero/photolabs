@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 
 import HomeRoute from 'routes/HomeRoute';
+import useApplicationData from 'hooks/useApplicationData';
 
 import photos from 'mocks/photos';
 import topics from 'mocks/topics';
@@ -18,81 +19,61 @@ const App = () => {
 
   const preparedPhotos = prepareData(photos);
   const preparedTopics = prepareData(topics);
+  const { updateToFavPhotos, favoritePhotos, setPhotoSelected, isModalOpen, singlePhotoDetail, onClosePhotoDetailsModal } = useApplicationData();
 
-  const [ globalFavId, setGlobalFavId ] = useState(null);
-  const [ favoritePhotos, setFavoritePhotos ] = useState([]);
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
-  const [ singlePhotoDetail, setSinglePhotoDetail ] = useState({})
+  // const [ globalFavId, setGlobalFavId ] = useState(null);
+  // const [ favoritePhotos, setFavoritePhotos ] = useState([]);
+  // const [ isModalOpen, setIsModalOpen ] = useState(false);
+  // const [ singlePhotoDetail, setSinglePhotoDetail ] = useState({})
   
-  const addFavorite = (id) => {
-    setFavoritePhotos(prevPhotos => [...prevPhotos, id]) // puts the fav photo id's in array
-  }
+  // const addFavorite = (id) => {
+  //   setFavoritePhotos(prevPhotos => [...prevPhotos, id]) // puts the fav photo id's in array
+  // }
 
-  const removeFavorite = (id) => {
-    setFavoritePhotos( prevPhotos => prevPhotos.filter(idItem => idItem !== id));// removes the photo id
-  }
+  // const removeFavorite = (id) => {
+  //   setFavoritePhotos( prevPhotos => prevPhotos.filter(idItem => idItem !== id));// removes the photo id
+  // }
 
-  const handleClickFav = (id) => {
+  // const handleClickFav = (id) => {
 
-    setGlobalFavId(id); // sets the photo id  
+  //   setGlobalFavId(id); // sets the photo id  
 
-    favoritePhotos.includes(id) ? removeFavorite(id) : addFavorite(id);
+  //   favoritePhotos.includes(id) ? removeFavorite(id) : addFavorite(id);
 
-  }
-
-//   const handleClickModal = (isModalOpen, photoId) => {
-//   isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true);
-//   // setIsModalOpen(prevState => !prevState);
-
-//   const photoDetails = preparedPhotos.find(photo => photo.id === photoId);
-  
-//   setSinglePhotoDetail({...photoDetails})
-// };
+  // }
 
 // const openModal = (photoId) => {
-//   const photoDetails = preparedPhotos.find(photo => photo.id === photoId);
-//   // setSinglePhotoDetail({ ...photoDetails, similar_photos: photoDetails.similar_photos || [] }); // Ensure similar_photos is an array
-//   setSinglePhotoDetail({...photoDetails})
+//   const photoDetails = preparedPhotos.find(photo => photo.id === photoId) || {};
+//   let similarPhotosArray = photoDetails.similar_photos || [];
+
+//   //make use of prepareddata function
+
+//   if (typeof similarPhotosArray === "object" && !Array.isArray(similarPhotosArray)) {
+//     similarPhotosArray = Object.values(similarPhotosArray);
+//   }
+
+//   console.log("Opening Modal with photoDetails:", photoDetails);
+//   console.log("Similar Photos:", similarPhotosArray);
+
+//   if (!singlePhotoDetail || singlePhotoDetail.id !== photoId) {
+//     setSinglePhotoDetail({
+//       ...photoDetails,
+//       similar_photos: similarPhotosArray
+//     });
+//     setIsModalOpen(true);
+//   }
+
+//   setSinglePhotoDetail({
+//     ...photoDetails,
+//     similar_photos: similarPhotosArray
+//   });
 //   setIsModalOpen(true);
 // };
 
 // const closeModal = () => {
 //   setIsModalOpen(false);
-//   setSinglePhotoDetail({});
+//   setSinglePhotoDetail({similar_photos: []}); // Reset to initial state
 // };
-
-const openModal = (photoId) => {
-  const photoDetails = preparedPhotos.find(photo => photo.id === photoId) || {};
-  let similarPhotosArray = photoDetails.similar_photos || [];
-
-  //make use of prepareddata function
-
-  if (typeof similarPhotosArray === "object" && !Array.isArray(similarPhotosArray)) {
-    similarPhotosArray = Object.values(similarPhotosArray);
-  }
-
-  console.log("Opening Modal with photoDetails:", photoDetails);
-  console.log("Similar Photos:", similarPhotosArray);
-
-  if (!singlePhotoDetail || singlePhotoDetail.id !== photoId) {
-    setSinglePhotoDetail({
-      ...photoDetails,
-      similar_photos: similarPhotosArray
-    });
-    setIsModalOpen(true);
-  }
-
-  setSinglePhotoDetail({
-    ...photoDetails,
-    similar_photos: similarPhotosArray
-  });
-  setIsModalOpen(true);
-};
-
-const closeModal = () => {
-  setIsModalOpen(false);
-  setSinglePhotoDetail({similar_photos: []}); // Reset to initial state
-};
 
 
 return (
@@ -100,47 +81,15 @@ return (
     <HomeRoute
       photos={preparedPhotos}
       topics={preparedTopics}
-      toggleFavorite={handleClickFav}
+      toggleFavorite={updateToFavPhotos}
       favoritePhotos={favoritePhotos}
-      displayModal={openModal}
+      displayModal={setPhotoSelected}
       isModalOpen={isModalOpen}
       singlePhotoDetail={singlePhotoDetail}
-      closeModal={closeModal}
+      closeModal={onClosePhotoDetailsModal}
     />
   </div>
 );
 };
-
-
-  // return (
-  //   <div className="App">     
-  //     <HomeRoute 
-  //       photos={preparedPhotos} 
-  //       topics={preparedTopics} 
-  //       globalFavorite={handleClickGlobalId} 
-  //       favoritePhotos={selectedPhotos} 
-  //       isModalOpen={isModalOpen} 
-  //       displayModal={handleClickModal}
-  //       singlePhotoDetail={singlePhotoDetail}
-  //     />      
-  //   </div>
-  // );
-
-  
-  // return (
-  //   <div className="App">
-  //     <HomeRoute
-  //       photos={preparedPhotos}
-  //       topics={preparedTopics}
-  //       globalFavorite={handleClickGlobalId}
-  //       favoritePhotos={selectedPhotos}
-  //       isModalOpen={isModalOpen}
-  //       displayModal={handleClickModal}
-  //       singlePhotoDetail={singlePhotoDetail}
-  //       closeModal={closeModal}
-  //     />
-  //   </div>
-  // );
-
 
 export default App;
