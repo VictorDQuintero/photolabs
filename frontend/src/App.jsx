@@ -22,8 +22,11 @@ const App = () => {
           updateToFavPhotos, 
           setPhotoSelected,   
           onClosePhotoDetailsModal,
-          handleTopicClick
+          handleTopicClick,
+          handleLogoClick
         } = useApplicationData();
+
+      console.log("This is photos by topic: ", state.photosByTopic)
 
 return (
   <div className="App">
@@ -32,6 +35,7 @@ return (
       topics={state.topicData}
       photosByTopic={state.photosByTopic}
       handleTopicClick={handleTopicClick}
+      handleLogoClick={handleLogoClick}
       toggleFavorite={updateToFavPhotos}
       favoritePhotos={state.favoritePhotos}
       displayModal={setPhotoSelected}
