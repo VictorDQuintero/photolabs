@@ -7,30 +7,31 @@ import PhotoDetailsModal from './PhotoDetailsModal';
 
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModal, isModalOpen, singlePhotoDetail, closeModal, handleTopicClick, photosByTopic }) => {
+const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModal, isModalOpen, singlePhotoDetail, closeModal, handleTopicClick, photosByTopic, handleLogoClick }) => {
 
-  const isPhotosByTopicFull = Object.keys(photosByTopic).length > 0;
-
-  console.log("In home route: ", favoritePhotos); // Debugging line
+  const isPhotosByTopicTrue = Object.keys(photosByTopic).length === 1;  
+  const topicPhotos = photosByTopic[Object.keys(photosByTopic)] || [];
+    
   return (
     <div className="home-route">
       {/* Render topics and other sections as needed */}
       <TopNavigation 
         topics={topics} 
         favoritePhotos={favoritePhotos} 
-        handleTopicClick={handleTopicClick}        
+        handleTopicClick={handleTopicClick} 
+        handleLogoClick={handleLogoClick}       
        />
        
-       { isPhotosByTopicFull && (
+       { isPhotosByTopicTrue ? (
         <PhotoList
-        photos={photosByTopic}
+        photos={topicPhotos}
         toggleFavorite={toggleFavorite}
         favoritePhotos={favoritePhotos}
         displayModal={displayModal}
         isModalOpen={isModalOpen}
         singlePhotoDetail={singlePhotoDetail}
       />
-       )}
+       ) : (
       <PhotoList
         photos={photos}
         toggleFavorite={toggleFavorite}
@@ -38,7 +39,8 @@ const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModa
         displayModal={displayModal}
         isModalOpen={isModalOpen}
         singlePhotoDetail={singlePhotoDetail}
-      />
+      />) }
+    
       
       { isModalOpen && singlePhotoDetail && (
         <PhotoDetailsModal
