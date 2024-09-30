@@ -9,7 +9,6 @@ export const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
   CLOSE_MODAL: 'CLOSE_MODAL',
   CLEAR_TOPIC_SELECTED: 'CLEAR_TOPIC_SELECTED'
 }
@@ -37,22 +36,37 @@ function reducer(state, action) {
           similar_photos: action.payload.similarPhotosArray
         }
       };
-    case ACTIONS.DISPLAY_PHOTO_DETAILS:
-      // Your logic for displaying photo details
-      return { ...state, displayDetails: action.payload.display };
+    
     case ACTIONS.CLOSE_MODAL:
 
       return { ...state, isPhotoSelected: false,
         singlePhotoDetail: {} };
+
     case ACTIONS.GET_PHOTOS_BY_TOPICS:
-
-      return { ...state, photosByTopic: {
-        ...state.photosByTopic,
-        [action.payload.topicId]: action.payload.data,}};
+      return {
+        ...state,
+        prevTopicId: state.activeTopicId,  // Set prevTopicId before updating the photos
+        photosByTopic: {
+          ...state.photosByTopic,
+          [action.payload.topicId]: action.payload.data,
+        },
+        activeTopicId: action.payload.topicId,  // Set the new active topic
+      };
     case ACTIONS.CLEAR_TOPIC_SELECTED:
+      const { prevTopicId, photosByTopic } = state;
+      const updatedPhotos = { ...photosByTopic };
+      
+        // Only remove the old topic's photos, not the currently selected one
+      if (prevTopicId && prevTopicId !== state.activeTopicId) {
+        delete updatedPhotos[prevTopicId];
+      }
+  
+      return {
+        ...state,
+        photosByTopic: updatedPhotos,  // Update the photos with old topic removed
+        prevTopicId: null,  // Clear prevTopicId
+      };
 
-    return { ...state, photosByTopic: {} }
-    
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
   }
@@ -67,7 +81,8 @@ const useApplicationData = () => {
     photoData: [],
     topicData: [],
     photosByTopic: {},
-   
+    prevTopicId: null,
+    activeTopicId: null
   }
   
    const [ state, dispatch ] = useReducer(reducer, initialState)
@@ -88,27 +103,37 @@ const useApplicationData = () => {
   }, []);
 
   const fetchPhotosByTopics = (topicId) => {
-    axios.get(`/api/topics/photos/${topicId}`)
-      .then((response) => {
-        dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: { topicId, data: response.data } })
-      })
-      .catch(error => {
-        console.error('Error fetching photos by topic:', error);
-      });
+    return new Promise((resolve, reject) => {
+      axios.get(`/api/topics/photos/${topicId}`)
+        .then((response) => {
+          dispatch({
+            type: ACTIONS.GET_PHOTOS_BY_TOPICS,
+            payload: { topicId, data: response.data },
+          });
+          resolve();  // Resolve when the fetch completes
+        })
+        .catch((error) => {
+          console.error('Error fetching photos by topics:', error);  // Handle fetch error
+        });
+    });
   }
 
-  const handleTopicClick = (topicId) => {
-    if (Object.keys(state.photosByTopic).length > 0) {
-     dispatch({ type: ACTIONS.CLEAR_TOPIC_SELECTED })
-    }
-    fetchPhotosByTopics(topicId);
+  const handleTopicClick = (topicId) => {   
+    fetchPhotosByTopics(topicId)
+    .then(() => {
+      // Fetch new photos, then clear old topic photos
+      dispatch({ type: ACTIONS.CLEAR_TOPIC_SELECTED });
+    })
+    .catch((error) => {
+      console.error('Error fetching new topic photos:', error);
+    });
   }
 
-  const handleLogoClick = () => {
-    if (Object.keys(state.photosByTopic).length > 0) {
-      dispatch({ type: ACTIONS.CLEAR_TOPIC_SELECTED })
-     }
-
+  const handleLogoClick = () => {     
+    dispatch({ 
+      type: ACTIONS.GET_PHOTOS_BY_TOPICS, 
+      payload: { topicId: null, data: {} }  // Clear active topic data 
+    });
   }
   // Handles the Favorite Functionality
   
@@ -158,7 +183,8 @@ const useApplicationData = () => {
     updateToFavPhotos,
     setPhotoSelected,
     onClosePhotoDetailsModal,
-    handleTopicClick
+    handleTopicClick,
+    handleLogoClick
   };
 
 
