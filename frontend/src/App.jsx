@@ -17,20 +17,18 @@ const prepareData = function (object) {
 // Note: Rendering a single component to build components in isolation
 const App = () => {
 
-  const preparedPhotos = prepareData(photos);
-  const preparedTopics = prepareData(topics);
   const { 
           state,
           updateToFavPhotos, 
           setPhotoSelected,   
           onClosePhotoDetailsModal 
-        } = useApplicationData(preparedPhotos);
+        } = useApplicationData();
 
 return (
   <div className="App">
     <HomeRoute
-      photos={preparedPhotos}
-      topics={preparedTopics}
+      photos={state.photoData}
+      topics={state.topicData}
       toggleFavorite={updateToFavPhotos}
       favoritePhotos={state.favoritePhotos}
       displayModal={setPhotoSelected}
