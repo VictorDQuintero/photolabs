@@ -1,6 +1,6 @@
 
 
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -20,11 +20,11 @@ function reducer(state, action) {
      
       return { ...state, favoritePhotos: state.favoritePhotos.filter(idItem => idItem !== action.payload.id) };
     case ACTIONS.SET_PHOTO_DATA:
-      // Your logic for setting photo data
-      return { ...state, photos: action.payload.photos };
+     
+      return { ...state, photoData: action.payload.data };
     case ACTIONS.SET_TOPIC_DATA:
-      // Your logic for setting topic data
-      return { ...state, topics: action.payload.topics };
+      
+      return { ...state, topicData: action.payload.data };
     case ACTIONS.SELECT_PHOTO:
       
       return {
@@ -46,15 +46,40 @@ function reducer(state, action) {
   }
 }
 
-const useApplicationData = (preparedPhotos) => {
+const useApplicationData = () => {
 
   const initialState = {
     favoritePhotos: [],
     isPhotoSelected: null,
     singlePhotoDetail: [],
+    photoData: [],
+    topicData: []
   }
   
    const [ state, dispatch ] = useReducer(reducer, initialState)
+
+   useEffect(() => {
+    fetch('/api/photos')
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { data }});
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/topics')
+      .then(res => res.json())
+      .then(data => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { data }});
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+   
   // Handles the Favorite Functionality
   
   const addFavorite = (id) => {
@@ -73,7 +98,7 @@ const useApplicationData = (preparedPhotos) => {
   // Handles What happens when a Photo is selected, , i.e. opens the Modal
 
   const setPhotoSelected = (photoId) => {
-    const photoDetails = preparedPhotos.find(photo => photo.id === photoId) || {};
+    const photoDetails = state.photoData.find(photo => photo.id === photoId) || {};
     let similarPhotosArray = photoDetails.similar_photos || [];
   
     //make use of prepareddata function
