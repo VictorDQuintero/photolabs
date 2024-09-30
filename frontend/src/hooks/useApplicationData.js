@@ -1,6 +1,7 @@
 
 
 import React, { useReducer, useEffect } from 'react';
+import axios from 'axios';
 
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -58,27 +59,22 @@ const useApplicationData = () => {
   
    const [ state, dispatch ] = useReducer(reducer, initialState)
 
-   useEffect(() => {
-    fetch('/api/photos')
-      .then(res => res.json())
-      .then(data => {
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { data }});
+   
+  useEffect(() => {
+    const fetchPhotos = axios.get('/api/photos');
+    const fetchTopics = axios.get('/api/topics');
+
+    Promise.all([fetchPhotos, fetchTopics])
+      .then(([photosResponse, topicsResponse]) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { data: photosResponse.data } });
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { data: topicsResponse.data } });
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
   }, []);
 
-  useEffect(() => {
-    fetch('/api/topics')
-      .then(res => res.json())
-      .then(data => {
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: { data }});
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+
    
   // Handles the Favorite Functionality
   
