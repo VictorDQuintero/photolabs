@@ -2,15 +2,16 @@ import React from "react";
 import TopicListItem from "./TopicListItem";
 import "../styles/TopicList.scss";
 
-const TopicList = (props) => {
+const TopicList = ({ topics, handleTopicClick}) => {
 
-  const topics = props.topics.map((topic) => {
+  const renderedTopics = topics.map((topic) => {
 
     return (
     <li key={topic.id}>
       <TopicListItem 
       label={topic.title}
       slug={topic.slug}
+      onClick={() => handleTopicClick(topic.id)}
       />
     </li>
     );
@@ -19,7 +20,7 @@ const TopicList = (props) => {
   return (
     <div className="top-nav-bar">
       <ul className="top-nav-bar__topic-list">
-        {topics}
+        {renderedTopics}
       </ul>
     </div>
   );

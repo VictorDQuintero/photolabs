@@ -21,7 +21,8 @@ const App = () => {
           state,
           updateToFavPhotos, 
           setPhotoSelected,   
-          onClosePhotoDetailsModal 
+          onClosePhotoDetailsModal,
+          handleTopicClick
         } = useApplicationData();
 
 return (
@@ -29,6 +30,8 @@ return (
     <HomeRoute
       photos={state.photoData}
       topics={state.topicData}
+      photosByTopic={state.photosByTopic}
+      handleTopicClick={handleTopicClick}
       toggleFavorite={updateToFavPhotos}
       favoritePhotos={state.favoritePhotos}
       displayModal={setPhotoSelected}

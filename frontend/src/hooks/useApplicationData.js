@@ -10,7 +10,8 @@ export const ACTIONS = {
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  CLOSE_MODAL: 'CLOSE_MODAL'
+  CLOSE_MODAL: 'CLOSE_MODAL',
+  CLEAR_TOPIC_SELECTED: 'CLEAR_TOPIC_SELECTED'
 }
 function reducer(state, action) {
   switch (action.type) {
@@ -40,8 +41,18 @@ function reducer(state, action) {
       // Your logic for displaying photo details
       return { ...state, displayDetails: action.payload.display };
     case ACTIONS.CLOSE_MODAL:
+
       return { ...state, isPhotoSelected: false,
-        singlePhotoDetail: {} }
+        singlePhotoDetail: {} };
+    case ACTIONS.GET_PHOTOS_BY_TOPICS:
+
+      return { ...state, photosByTopic: {
+        ...state.photosByTopic,
+        [action.payload.topicId]: action.payload.data,}};
+    case ACTIONS.CLEAR_TOPIC_SELECTED:
+
+    return { ...state, photosByTopic: {} }
+    
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
   }
@@ -54,7 +65,9 @@ const useApplicationData = () => {
     isPhotoSelected: null,
     singlePhotoDetail: [],
     photoData: [],
-    topicData: []
+    topicData: [],
+    photosByTopic: {},
+   
   }
   
    const [ state, dispatch ] = useReducer(reducer, initialState)
@@ -63,7 +76,7 @@ const useApplicationData = () => {
   useEffect(() => {
     const fetchPhotos = axios.get('/api/photos');
     const fetchTopics = axios.get('/api/topics');
-
+   
     Promise.all([fetchPhotos, fetchTopics])
       .then(([photosResponse, topicsResponse]) => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: { data: photosResponse.data } });
@@ -74,8 +87,29 @@ const useApplicationData = () => {
       });
   }, []);
 
+  const fetchPhotosByTopics = (topicId) => {
+    axios.get(`/api/topics/photos/${topicId}`)
+      .then((response) => {
+        dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: { topicId, data: response.data } })
+      })
+      .catch(error => {
+        console.error('Error fetching photos by topic:', error);
+      });
+  }
 
-   
+  const handleTopicClick = (topicId) => {
+    if (Object.keys(state.photosByTopic).length > 0) {
+     dispatch({ type: ACTIONS.CLEAR_TOPIC_SELECTED })
+    }
+    fetchPhotosByTopics(topicId);
+  }
+
+  const handleLogoClick = () => {
+    if (Object.keys(state.photosByTopic).length > 0) {
+      dispatch({ type: ACTIONS.CLEAR_TOPIC_SELECTED })
+     }
+
+  }
   // Handles the Favorite Functionality
   
   const addFavorite = (id) => {
@@ -124,6 +158,7 @@ const useApplicationData = () => {
     updateToFavPhotos,
     setPhotoSelected,
     onClosePhotoDetailsModal,
+    handleTopicClick
   };
 
 

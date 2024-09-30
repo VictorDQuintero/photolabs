@@ -7,37 +7,10 @@ import PhotoDetailsModal from './PhotoDetailsModal';
 
 import '../styles/HomeRoute.scss';
 
-// const HomeRoute = (props) => {
-  
-//   return (
-//     <div className="home-route">
-//       {/* Insert React */}
-//       <TopNavigation 
-//         topics={props.topics} 
-//         favoritePhotos={props.favoritePhotos} 
-//       />
-//       <PhotoList 
-//         photos={props.photos} 
-//         globalFavorite={props.globalFavorite}
-//         displayModal={props.displayModal}
-//         isModalOpen={props.isModalOpen}
-//       />
-//       {   
-//         props.isModalOpen 
-//         && 
-//         <PhotoDetailsModal 
-//           photos={props.photos}
-//           closeModal={props.displayModal} 
-//           isModalOpen={props.isModalOpen} 
-//           singlePhotoDetail={props.singlePhotoDetail}
-//         />
-       
-//       }      
-//     </div>
-//   );
-// };
+const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModal, isModalOpen, singlePhotoDetail, closeModal, handleTopicClick, photosByTopic }) => {
 
-const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModal, isModalOpen, singlePhotoDetail, closeModal }) => {
+  const isPhotosByTopicFull = Object.keys(photosByTopic).length > 0;
+
   console.log("In home route: ", favoritePhotos); // Debugging line
   return (
     <div className="home-route">
@@ -45,7 +18,19 @@ const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModa
       <TopNavigation 
         topics={topics} 
         favoritePhotos={favoritePhotos} 
+        handleTopicClick={handleTopicClick}        
        />
+       
+       { isPhotosByTopicFull && (
+        <PhotoList
+        photos={photosByTopic}
+        toggleFavorite={toggleFavorite}
+        favoritePhotos={favoritePhotos}
+        displayModal={displayModal}
+        isModalOpen={isModalOpen}
+        singlePhotoDetail={singlePhotoDetail}
+      />
+       )}
       <PhotoList
         photos={photos}
         toggleFavorite={toggleFavorite}
@@ -54,7 +39,8 @@ const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModa
         isModalOpen={isModalOpen}
         singlePhotoDetail={singlePhotoDetail}
       />
-      {isModalOpen && singlePhotoDetail && (
+      
+      { isModalOpen && singlePhotoDetail && (
         <PhotoDetailsModal
           photos={photos}
           closeModal={closeModal}
