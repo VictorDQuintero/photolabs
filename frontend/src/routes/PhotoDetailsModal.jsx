@@ -1,5 +1,3 @@
-//TODO at the moment if a user clicks a picture outside of the modal it will display in the modal, this shouldn't happen, the backpage should be neutralized
-//TODO there is a potentially unnecessary prop: photo
 import React from 'react';
 
 import PhotoList from 'components/PhotoList';
@@ -8,7 +6,7 @@ import PhotoFavButton from 'components/PhotoFavButton';
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, toggleFavorite, photos, favoritePhotos, similarPhotos }) => {
+const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, toggleFavorite, favoritePhotos, similarPhotos }) => {
   
   const isFavorite = favoritePhotos.includes(singlePhotoDetail.id);
 
