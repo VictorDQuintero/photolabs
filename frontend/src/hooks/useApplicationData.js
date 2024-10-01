@@ -8,7 +8,8 @@ export const ACTIONS = {
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   CLOSE_MODAL: 'CLOSE_MODAL',
-  CLEAR_TOPIC_SELECTED: 'CLEAR_TOPIC_SELECTED'
+  CLEAR_TOPIC_SELECTED: 'CLEAR_TOPIC_SELECTED',
+  HOME_LOGO: 'HOME_LOGO'
 }
 function reducer(state, action) {
 
@@ -51,11 +52,12 @@ function reducer(state, action) {
       return {
         ...state,
         prevTopicId: state.activeTopicId,  // Set prevTopicId before updating the photos
+        activeTopicId: action.payload.topicId,  // Set the new active topic
         photosByTopic: {
           ...state.photosByTopic,
           [action.payload.topicId]: action.payload.data,
         },
-        activeTopicId: action.payload.topicId,  // Set the new active topic
+        
       };
 
     case ACTIONS.CLEAR_TOPIC_SELECTED:
@@ -70,8 +72,17 @@ function reducer(state, action) {
       return {
         ...state,
         photosByTopic: updatedPhotos,  // Update the photos with old topic removed
-        prevTopicId: null,  // Clear prevTopicId
+        activeTopicId: action.payload.topicId,        
       };
+    
+      case ACTIONS.HOME_LOGO:
+
+      return {
+        ...state,
+        photosByTopic: {},
+        activeTopicId: null,
+        prevTopicId: null,
+      }
 
     default:
       throw new Error(`Unsupported action type: ${action.type}`);
@@ -128,19 +139,17 @@ const useApplicationData = () => {
     fetchPhotosByTopics(topicId)
     .then(() => {
       // Fetch new photos, then clear old topic photos
-      dispatch({ type: ACTIONS.CLEAR_TOPIC_SELECTED });
+      dispatch({ type: ACTIONS.CLEAR_TOPIC_SELECTED, payload: { topicId } });
     })
     .catch((error) => {
       console.error('Error fetching new topic photos:', error);
     });
   }
 
-  const handleLogoClick = () => {     
-    dispatch({ 
-      type: ACTIONS.GET_PHOTOS_BY_TOPICS, 
-      payload: { topicId: null, data: {} }  // Clear active topic data 
-    });
-  }
+  const handleLogoClick = () => {
+    // Clear the selected topic and reset the state
+    dispatch({ type: ACTIONS.HOME_LOGO });
+  };
 
   // Handles the Favorite Functionality
   
