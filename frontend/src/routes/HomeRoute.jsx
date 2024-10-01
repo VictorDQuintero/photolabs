@@ -1,4 +1,3 @@
-//TODO  However, it's not clear where these props are coming from. Make sure these props are correctly derived from your app's state.
 import React from 'react';
 
 import TopNavigation from 'components/TopNavigationBar';
@@ -14,14 +13,14 @@ const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModa
     
   return (
     <div className="home-route">
-      {/* Render topics and other sections as needed */}
+      
       <TopNavigation 
         topics={topics} 
         favoritePhotos={favoritePhotos} 
         handleTopicClick={handleTopicClick} 
         handleLogoClick={handleLogoClick}       
        />
-       
+       {/* Conditional rendering of Pictures By Topic and All of the pictures */}
        { isPhotosByTopicTrue ? (
         <PhotoList
         photos={topicPhotos}
