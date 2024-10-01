@@ -35,7 +35,7 @@ function reducer(state, action) {
       
       return {
         ...state,
-        isPhotoSelected: true,
+        isModalOpen: true,
         singlePhotoDetail: {
           ...action.payload.photoDetails,
           similar_photos: action.payload.similarPhotosArray
@@ -44,7 +44,7 @@ function reducer(state, action) {
     
     case ACTIONS.CLOSE_MODAL:
 
-      return { ...state, isPhotoSelected: false,
+      return { ...state, isModalOpen: false,
         singlePhotoDetail: {} };
 
     case ACTIONS.GET_PHOTOS_BY_TOPICS:
@@ -93,7 +93,7 @@ const useApplicationData = () => {
 
   const initialState = {
     favoritePhotos: [],
-    isPhotoSelected: null,
+    isModalOpen: null,
     singlePhotoDetail: [],
     photoData: [],
     topicData: [],

@@ -24,10 +24,10 @@ const App = () => {
         photosByTopic={state.photosByTopic}
         handleTopicClick={handleTopicClick}
         handleLogoClick={handleLogoClick}
-        toggleFavorite={updateToFavPhotos}
+        updateToFavPhotos={updateToFavPhotos}
         favoritePhotos={state.favoritePhotos}
         displayModal={setPhotoSelected}
-        isModalOpen={state.isPhotoSelected}
+        isModalOpen={state.isModalOpen}
         singlePhotoDetail={state.singlePhotoDetail}
         closeModal={onClosePhotoDetailsModal}
       />

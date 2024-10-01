@@ -6,7 +6,7 @@ import PhotoDetailsModal from './PhotoDetailsModal';
 
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModal, isModalOpen, singlePhotoDetail, closeModal, handleTopicClick, photosByTopic, handleLogoClick }) => {
+const HomeRoute = ({ photos, topics, updateToFavPhotos, favoritePhotos, displayModal, isModalOpen, singlePhotoDetail, closeModal, handleTopicClick, photosByTopic, handleLogoClick }) => {
 
   const isPhotosByTopicTrue = Object.keys(photosByTopic).length === 1;  
   const topicPhotos = photosByTopic[Object.keys(photosByTopic)] || [];
@@ -24,7 +24,7 @@ const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModa
        { isPhotosByTopicTrue ? (
         <PhotoList
         photos={topicPhotos}
-        toggleFavorite={toggleFavorite}
+        updateToFavPhotos={updateToFavPhotos}
         favoritePhotos={favoritePhotos}
         displayModal={displayModal}
         isModalOpen={isModalOpen}
@@ -33,7 +33,7 @@ const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModa
        ) : (
       <PhotoList
         photos={photos}
-        toggleFavorite={toggleFavorite}
+        updateToFavPhotos={updateToFavPhotos}
         favoritePhotos={favoritePhotos}
         displayModal={displayModal}
         isModalOpen={isModalOpen}
@@ -46,7 +46,7 @@ const HomeRoute = ({ photos, topics, toggleFavorite, favoritePhotos, displayModa
           photos={photos}
           closeModal={closeModal}
           singlePhotoDetail={singlePhotoDetail}
-          toggleFavorite={toggleFavorite}
+          updateToFavPhotos={updateToFavPhotos}
           favoritePhotos={favoritePhotos}
           similarPhotos={singlePhotoDetail.similar_photos}
         />

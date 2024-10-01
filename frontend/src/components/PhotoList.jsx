@@ -2,7 +2,7 @@ import React from "react";
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
-const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, toggleFavorite, favoritePhotos }) => {
+const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, updateToFavPhotos, favoritePhotos }) => {
    
   const photoItems = photos.map(photo => (
     <li key={photo.id}>
@@ -13,7 +13,7 @@ const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, toggl
         city={photo.location.city}
         country={photo.location.country}
         id={photo.id}
-        toggleFavorite={toggleFavorite}
+        updateToFavPhotos={updateToFavPhotos}
         favoritePhotos={favoritePhotos}
         displayModal={() => displayModal(photo.id)}
       />
@@ -30,7 +30,7 @@ const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, toggl
             city={similarPhoto.location.city}
             country={similarPhoto.location.country}
             id={similarPhoto.id}
-            toggleFavorite={toggleFavorite}
+            updateToFavPhotos={updateToFavPhotos}
             favoritePhotos={favoritePhotos}
           />
         </li>

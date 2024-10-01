@@ -6,7 +6,7 @@ import PhotoFavButton from 'components/PhotoFavButton';
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 
-const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, toggleFavorite, favoritePhotos, similarPhotos }) => {
+const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, updateToFavPhotos, favoritePhotos, similarPhotos }) => {
   
   const isFavorite = favoritePhotos.includes(singlePhotoDetail.id);
 
@@ -20,7 +20,7 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, toggleFavorite, favo
       <div className="photo-details-modal__images">
         <div className="photo-details-modal__favorite-button">
             <PhotoFavButton
-              onClick={() => toggleFavorite(singlePhotoDetail.id)}
+              onClick={() => updateToFavPhotos(singlePhotoDetail.id)}
               isFavorite={isFavorite}
             />
           </div>
@@ -49,7 +49,7 @@ const PhotoDetailsModal = ({ closeModal, singlePhotoDetail, toggleFavorite, favo
               <PhotoList
                 photos={similarPhotos}
                 singlePhotoDetail={singlePhotoDetail}
-                toggleFavorite={toggleFavorite}
+                updateToFavPhotos={updateToFavPhotos}
                 favoritePhotos={favoritePhotos}
               />
             </div>
