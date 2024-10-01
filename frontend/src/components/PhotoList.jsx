@@ -1,5 +1,3 @@
-//TODO put all of the return inside a single div, import the scss for the modal here and in photolistitem, because I'm going to have to render it conditionally there too
-
 import React from "react";
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
