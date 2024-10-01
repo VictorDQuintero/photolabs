@@ -1,4 +1,3 @@
-//TODO Figure out exactly what does this code mean
 import React from 'react';
 
 const FavIcon = ({displayAlert, selected}) => {

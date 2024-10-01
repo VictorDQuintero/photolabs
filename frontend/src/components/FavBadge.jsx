@@ -14,10 +14,4 @@ const FavBadge = ({ isFavPhotoExist }) => {
   ) 
 };
 
-// const FavBadge = ({ selected }) => (
-//   <div className='fav-badge'>
-//     <FavIcon selected={selected} />
-//   </div>
-// );
-
 export default FavBadge;
