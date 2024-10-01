@@ -22,7 +22,7 @@ const PhotoList = ({ photos, singlePhotoDetail, displayModal, isModalOpen, toggl
     </li>
   ));
 
-  const similarPhotos = isModalOpen && singlePhotoDetail && Array.isArray(singlePhotoDetail.similar_photos) && singlePhotoDetail.similar_photos.length > 0 
+  isModalOpen && singlePhotoDetail && Array.isArray(singlePhotoDetail.similar_photos) && singlePhotoDetail.similar_photos.length > 0 
     ? singlePhotoDetail.similar_photos.map(similarPhoto => (
         <li key={similarPhoto.id}>
           <PhotoListItem
