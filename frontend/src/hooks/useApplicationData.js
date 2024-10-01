@@ -1,5 +1,3 @@
-
-
 import React, { useReducer, useEffect } from 'react';
 import axios from 'axios';
 
@@ -13,19 +11,25 @@ export const ACTIONS = {
   CLEAR_TOPIC_SELECTED: 'CLEAR_TOPIC_SELECTED'
 }
 function reducer(state, action) {
+
   switch (action.type) {
+
     case ACTIONS.FAV_PHOTO_ADDED:
       
       return { ...state, favoritePhotos: [...state.favoritePhotos, action.payload.id] };
+
     case ACTIONS.FAV_PHOTO_REMOVED:
      
       return { ...state, favoritePhotos: state.favoritePhotos.filter(idItem => idItem !== action.payload.id) };
+
     case ACTIONS.SET_PHOTO_DATA:
      
       return { ...state, photoData: action.payload.data };
+
     case ACTIONS.SET_TOPIC_DATA:
       
       return { ...state, topicData: action.payload.data };
+
     case ACTIONS.SELECT_PHOTO:
       
       return {
@@ -43,6 +47,7 @@ function reducer(state, action) {
         singlePhotoDetail: {} };
 
     case ACTIONS.GET_PHOTOS_BY_TOPICS:
+
       return {
         ...state,
         prevTopicId: state.activeTopicId,  // Set prevTopicId before updating the photos
@@ -52,6 +57,7 @@ function reducer(state, action) {
         },
         activeTopicId: action.payload.topicId,  // Set the new active topic
       };
+
     case ACTIONS.CLEAR_TOPIC_SELECTED:
       const { prevTopicId, photosByTopic } = state;
       const updatedPhotos = { ...photosByTopic };
@@ -88,7 +94,7 @@ const useApplicationData = () => {
    const [ state, dispatch ] = useReducer(reducer, initialState)
 
    
-  useEffect(() => {
+  useEffect(() => {// Fetches all photos and topics
     const fetchPhotos = axios.get('/api/photos');
     const fetchTopics = axios.get('/api/topics');
    
@@ -135,6 +141,7 @@ const useApplicationData = () => {
       payload: { topicId: null, data: {} }  // Clear active topic data 
     });
   }
+
   // Handles the Favorite Functionality
   
   const addFavorite = (id) => {
@@ -156,16 +163,8 @@ const useApplicationData = () => {
     const photoDetails = state.photoData.find(photo => photo.id === photoId) || {};
     let similarPhotosArray = photoDetails.similar_photos || [];
   
-    //make use of prepareddata function
-  
-    // Convert similarPhotosArray from object to array if necessary
-  if (!Array.isArray(similarPhotosArray)) {
-    similarPhotosArray = typeof similarPhotosArray === "object" ? Object.values(similarPhotosArray) : [];
-  }
-    
-    if (!state.singlePhotoDetail || state.singlePhotoDetail.id !== photoId) {
-      dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photoDetails, similarPhotosArray } })
-    
+  if (!state.singlePhotoDetail || state.singlePhotoDetail.id !== photoId) {
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: { photoDetails, similarPhotosArray } })
     };
   
   };
